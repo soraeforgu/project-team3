@@ -1,5 +1,5 @@
 # cert-manager
-# # kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.0/cert-manager.yaml
+# kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.0/cert-manager.yaml
 
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -8,9 +8,7 @@ metadata:
   namespace: soldesk
 spec:
   acme:
-    # 인증서 서버 주소. 해당 서버의 리소스를 통해 인증서 발행
     server: https://acme-v02.api.letsencrypt.org/directory
-    # 인증서 만료 또는 갱신 필요시 알람 email
     email: rltjr123@gmail.com
     privateKeySecretRef:
       name: my-issuer
@@ -19,19 +17,18 @@ spec:
           ingress:
             class: nginx
 ---
-# 3.ClusterIssue를 사용하여 Certificate 리소스 생성 : Certificate리소스 생성시에 인증서 발급
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: app-aws-esk-com-tls
+  name: app-kanges-click-tls
   namespace: soldesk
 spec:
-  secretName: app-aws-esk-com-tls
-  duration: 2160h #90day
-  renewBefore: 360h #before 15day
+  secretName: app-kanges-click-tls
+  duration: 2160h
+  renewBefore: 360h
   issuerRef:
     name: my-issuer
     kind: ClusterIssuer
-  commonName: app.aws-esk.com
+  commonName: app.kanges.click
   dnsNames:
-    - app.aws-esk.com
+    - app.kanges.click
