@@ -191,4 +191,5 @@ jobs:
           fi
 
           git commit -m "chore: update image tags to ${IMAGE_TAG}"
+          git pull --rebase origin "${BRANCH}"
           git push origin "${BRANCH}"
